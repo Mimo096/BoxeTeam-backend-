@@ -8,15 +8,14 @@ import verifyAdmin from '../middlewares/authMiddleware.js'
 const router = express.Router();
 
 // 1. Récupérer tous les administrateurs
-router.get('/',  (req, res) => {
-    const query = 'SELECT id, email FROM administrateurs';
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('Erreur lors de la récupération des administrateurs :', err);
-            return res.status(500).json({ error: 'Erreur serveur' });
-        }
+router.get('/', async (req, res) => {
+    try {
+        const [results] = await db.query('SELECT id, email FROM administrateurs');
         res.json(results);
-    });
+    } catch (err) {
+        console.error('Erreur lors de la récupération des administrateurs :', err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
 });
 
 
