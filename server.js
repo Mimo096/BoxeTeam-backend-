@@ -44,13 +44,6 @@ if (!process.env.JWT_SECRET) {
 }
 
 
-// Servir les fichiers statiques du frontend React
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-// Route fallback pour React (pour toutes les routes non API)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
 
 
 // Démarrer le serveur
